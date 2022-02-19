@@ -1,22 +1,22 @@
 import express, { Request, Response } from 'express';
-import { resizeImage } from './image-util/image';
-
+import { resizeHandler } from './handlers';
+import {checkCache} from './middleware/api.middleware';
 const app = express();
 
-app.get('/', (req: Request, res: Response) => {
-  const newWidth: number = parseInt(req.query.width as string);
-  const newHeight: number = parseInt(req.query.height as string);
+app.use(express.static("public"));
+app.use(checkCache);
 
-  if (resizeImage(newWidth, newHeight) == true) {
-    res.status(200).send('Image Resized Successfully.').end();
-  } else {
-    res.status(500).send('Failed!').end();
-  }
+app.get('/', (req: Request, res: Response) => {
+    res.status(200).send('Welcome to Image Resizer App').end();
 });
 
+app.get('/resize', resizeHandler );
+
 // Start the server
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   console.log('Press Ctrl+C to quit.');
 });
+
+module.exports=app;
