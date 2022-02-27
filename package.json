@@ -11,7 +11,6 @@
     "test-init": "jasmine init",
     "jasmine": "jasmine",
     "test": "npm run build && npm run jasmine"
-
   },
   "keywords": [],
   "author": "Ahmed Mohamed Hassan Hassan",
@@ -25,7 +24,6 @@
     "@types/express": "^4.17.13",
     "@types/jasmine": "^3.10.3",
     "@types/node": "^17.0.17",
-    "@types/node-fetch": "^2.6.1",
     "@types/sharp": "^0.29.5",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
@@ -33,7 +31,6 @@
     "express": "^4.17.3",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
-    "read-pixels": "^0.4.0",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
   }
