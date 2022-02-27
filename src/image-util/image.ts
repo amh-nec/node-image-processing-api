@@ -1,13 +1,15 @@
+import * as fs from 'fs';
 import sharp from 'sharp';
-import * as path from 'path';
-import { generateOutPath } from '../helpers/helper';
-
-export function resizeImage(newWidth: number, newHeight: number):boolean {
+import { generateOutPath,generatInPath } from '../helpers/helper';
+export async function resizeImage(imageName:string,newWidth: number, newHeight: number):Promise<boolean> {
   // eslint-disable-next-line no-var
   var ret =false;
-  sharp(path.resolve('./public/images/img.jpg'))
+  const inImagePath:string =generatInPath(imageName);
+  if(fs.existsSync(inImagePath))
+  {
+    sharp(inImagePath)
     .resize(newWidth, newHeight)
-    .toFile(generateOutPath(newWidth,newHeight))
+    .toFile(generateOutPath(imageName,newWidth,newHeight))
     .then((data)=>{
       console.log(data);
     })
@@ -18,5 +20,11 @@ export function resizeImage(newWidth: number, newHeight: number):boolean {
     .finally(()=>{
       ret= true;
     });
+  }
+  else
+  {
+    ret=false;
+  }
+  
     return ret;
 }
