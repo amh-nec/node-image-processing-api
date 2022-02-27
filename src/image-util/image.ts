@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import sharp from 'sharp';
 import { generateOutPath,generatInPath } from '../helpers/helper';
-export async function resizeImage(imageName:string,newWidth: number, newHeight: number):Promise<boolean> {
+export function resizeImage(imageName:string,newWidth: number, newHeight: number):boolean {
   // eslint-disable-next-line no-var
-  var ret =false;
+  var ret =true;
   const inImagePath:string =generatInPath(imageName);
   if(fs.existsSync(inImagePath))
   {
