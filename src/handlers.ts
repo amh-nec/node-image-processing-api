@@ -1,4 +1,4 @@
-import e, { Request,Response } from "express";
+import { Request,Response } from "express";
 import { resizeImage } from "./image-util/image";
 
 export async function resizeHandler (req: Request, res: Response):Promise<void> {
