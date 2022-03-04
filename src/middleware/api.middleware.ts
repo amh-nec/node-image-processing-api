@@ -8,8 +8,7 @@ export function checkCache(req:Request,res:Response,next:NextFunction){
     const imageName:string = req.query.image as string;
     const imgPath = generateOutPath(imageName,newWidth, newHeight);
     if (fs.existsSync(imgPath).valueOf()){
-        console.log('from cache...');
-        res.send("Image Resized Successfully.");
+        res.sendFile(imgPath)
     }
     else{
         next();

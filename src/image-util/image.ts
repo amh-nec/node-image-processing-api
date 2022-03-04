@@ -1,30 +1,35 @@
 import * as fs from 'fs';
 import sharp from 'sharp';
 import { generateOutPath,generatInPath } from '../helpers/helper';
-export function resizeImage(imageName:string,newWidth: number, newHeight: number):boolean {
-  // eslint-disable-next-line no-var
-  var ret =true;
+export function resizeImage(imageName:string,newWidth: number, newHeight: number):{Result:boolean,Message:string} {
   const inImagePath:string =generatInPath(imageName);
-  if(fs.existsSync(inImagePath))
-  {
+  const outPath = generateOutPath(imageName,newWidth,newHeight);
+  
+  let ret={Result:true,
+    Message:outPath};
+
+  if(fs.existsSync(inImagePath) && newHeight>0 && newWidth>0)
+  { 
     sharp(inImagePath)
     .resize(newWidth, newHeight)
-    .toFile(generateOutPath(imageName,newWidth,newHeight))
+    .toFile(outPath)
     .then((data)=>{
       console.log(data);
     })
     .catch((e)=>{
       console.log(e);
-      ret= false;
+      ret ={Result:false,
+        Message:e};
     })
     .finally(()=>{
-      ret= true;
+      ret ={Result:false,
+        Message:outPath};
     });
   }
   else
   {
-    ret=false;
+    ret ={Result:false,
+      Message:"Invalid Inputs"};
   }
-  
     return ret;
 }
