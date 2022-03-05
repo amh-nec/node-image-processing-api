@@ -1,9 +1,9 @@
-import chai from 'chai'
-import chaiHttp from 'chai-http'
-import { SuperAgentRequest } from 'superagent'
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import { SuperAgentRequest } from 'superagent';
 
 chai.use(chaiHttp)
-// overwrite Jasmine's expect global with Chai's
+
 const expect = chai.expect
 const req    = chai.request('http://localhost:8080/')
 

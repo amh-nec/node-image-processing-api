@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import sharp from 'sharp';
 import { generateOutPath,generatInPath } from '../helpers/helper';
-export function resizeImage(imageName:string,newWidth: number, newHeight: number):{Result:boolean,Message:string} {
+export async function resizeImage(imageName:string,newWidth: number, newHeight: number):Promise<{ Result: boolean; Message: string; }> {
   const inImagePath:string =generatInPath(imageName);
   const outPath = generateOutPath(imageName,newWidth,newHeight);
   
@@ -10,21 +10,9 @@ export function resizeImage(imageName:string,newWidth: number, newHeight: number
 
   if(fs.existsSync(inImagePath) && newHeight>0 && newWidth>0)
   { 
-    sharp(inImagePath)
-    .resize(newWidth, newHeight)
-    .toFile(outPath)
-    .then((data)=>{
-      console.log(data);
-    })
-    .catch((e)=>{
-      console.log(e);
-      ret ={Result:false,
-        Message:e};
-    })
-    .finally(()=>{
-      ret ={Result:false,
-        Message:outPath};
-    });
+    await sharp(inImagePath)
+      .resize(newWidth, newHeight)
+      .toFile(outPath);
   }
   else
   {
